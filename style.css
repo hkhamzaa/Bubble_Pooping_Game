@@ -44,7 +44,7 @@ body{
 
 /* Game Options */
 .game-options{display:flex;gap:20px;margin:0 0 24px 0;justify-content:center;flex-wrap:wrap}
-.option-group{display:flex;flex-direction:column;gap:8px;align-items:center}
+.option-group{display:flex;flex-direction:column;gap:8px;align-items:center;}
 .option-label{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
 .option-select{
   appearance:none;border:none;cursor:pointer;padding:10px 16px;border-radius:10px;
@@ -55,6 +55,13 @@ body{
 }
 .option-select:hover{background:linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.06));border-color:var(--accent-2);box-shadow:0 8px 25px rgba(101,247,255,0.2)}
 .option-select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(123,127,255,0.3)}
+ 
+.option-select option{
+  background:var(--bg-start);
+  color:var(--text);
+  font-size:14px;
+  font-weight:600;
+}
 
 /* Buttons */
 .btn-primary,.btn-secondary{

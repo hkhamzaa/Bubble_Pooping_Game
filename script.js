@@ -205,6 +205,7 @@ function handleCircleMiss() {
     
     // Check for game over
     if (gameState.score <= 0) {
+      console.log("Score reached 0, calling endGame('lose')"); // Debug log
       endGame("lose");
       return;
     }
@@ -334,6 +335,7 @@ function startTimer() {
     updateTimerDisplay();
     
     if (gameState.remainingTime <= 0) {
+      console.log("Timer reached 0, calling endGame('timeup')"); // Debug log
       endGame("timeup");
     } else {
       gameState.timerId = setTimeout(tick, 50);
@@ -347,16 +349,14 @@ function startTimer() {
  * Ends the game with specified reason
  */
 function endGame(reason) {
-  gameState.isRunning = false;
-  clearTimeout(gameState.timerId);
-  removeCurrentCircle();
+  console.log("endGame called with reason:", reason); // Debug log
   
   // Update high score if not a loss
   if (reason !== "lose") {
     updateHighScore();
   }
   
-  // Show results
+  // Show results (this will handle stopping the game)
   showResults(reason);
 }
 
@@ -364,26 +364,63 @@ function endGame(reason) {
  * Shows the results overlay with game statistics
  */
 function showResults(reason) {
+  console.log("showResults called with reason:", reason); // Debug log
+  
+  // Check if results overlay exists
+  if (!elements.resultsOverlay) {
+    console.error("Results overlay element not found!");
+    // Try to find it again
+    elements.resultsOverlay = document.getElementById("resultsOverlay");
+    if (!elements.resultsOverlay) {
+      console.error("Still cannot find results overlay!");
+      return;
+    }
+  }
+  
+  // Ensure game is stopped
+  gameState.isRunning = false;
+  clearTimeout(gameState.timerId);
+  removeCurrentCircle();
+  
   // Update result message
-  if (reason === "lose") {
-    elements.resultsTitle.textContent = "💥 You Lose!";
-  } else {
-    elements.resultsTitle.textContent = "⏳ Time's Up!";
+  if (elements.resultsTitle) {
+    if (reason === "lose") {
+      elements.resultsTitle.textContent = "💥 You Lose!";
+    } else {
+      elements.resultsTitle.textContent = "⏳ Time's Up!";
+    }
   }
   
   // Update statistics
-  elements.finalScore.textContent = gameState.score;
-  elements.clicksCount.textContent = gameState.clicks;
-  elements.missesCount.textContent = gameState.misses;
+  if (elements.finalScore) elements.finalScore.textContent = gameState.score;
+  if (elements.clicksCount) elements.clicksCount.textContent = gameState.clicks;
+  if (elements.missesCount) elements.missesCount.textContent = gameState.misses;
   
   // Calculate average reaction time (placeholder for now)
-  elements.avgReaction.textContent = "0 ms";
+  if (elements.avgReaction) elements.avgReaction.textContent = "0 ms";
   
   // Fetch motivational quote
   fetchQuote();
   
-  // Show overlay
+  // Force show overlay immediately and with multiple methods
   elements.resultsOverlay.classList.remove("hidden");
+  elements.resultsOverlay.style.display = "flex";
+  elements.resultsOverlay.style.visibility = "visible";
+  elements.resultsOverlay.style.opacity = "1";
+  elements.resultsOverlay.style.zIndex = "10";
+  elements.resultsOverlay.style.position = "fixed";
+  elements.resultsOverlay.style.top = "0";
+  elements.resultsOverlay.style.left = "0";
+  elements.resultsOverlay.style.width = "100%";
+  elements.resultsOverlay.style.height = "100%";
+  
+  // Also try with a small delay as backup
+  setTimeout(() => {
+    elements.resultsOverlay.style.display = "flex";
+    elements.resultsOverlay.classList.remove("hidden");
+  }, 100);
+  
+  console.log("Results overlay should now be visible"); // Debug log
 }
 
 /**
@@ -391,6 +428,7 @@ function showResults(reason) {
  */
 function hideResults() {
   elements.resultsOverlay.classList.add("hidden");
+  elements.resultsOverlay.style.display = "none";
 }
 
 /**
@@ -416,6 +454,8 @@ function backToMenu() {
  * Fetches motivational quote from API
  */
 async function fetchQuote() {
+  if (!elements.quote) return; // Skip if quote element doesn't exist
+  
   try {
     elements.quote.textContent = "Fetching a motivational boost…";
     const response = await fetch("https://zenquotes.io/api/random");
