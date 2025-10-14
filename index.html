@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shrinking Circle Challenge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="hud">
+      <div class="hud-item"><span class="label">Time</span><span id="timer" class="value">30.0</span></div>
+      <div class="hud-item"><span class="label">Score</span><span id="score" class="value">0</span></div>
+      <div class="hud-item"><span class="label">High</span><span id="highScore" class="value">0</span></div>
+    </header>
+
+    <main id="gameArea" class="game-area">
+      <div class="landing center">
+        <h1 class="title">Shrinking Circle Challenge</h1>
+        <p class="subtitle">Test your reflexes. Tap the circle before it vanishes.</p>
+        
+        <div class="game-options">
+          <div class="option-group">
+            <label class="option-label">Game Duration</label>
+            <select id="durationSelect" class="option-select">
+              <option value="25">25 seconds</option>
+              <option value="40" selected>40 seconds</option>
+              <option value="60">60 seconds</option>
+            </select>
+          </div>
+          
+          <div class="option-group">
+            <label class="option-label">Difficulty</label>
+            <select id="difficultySelect" class="option-select">
+              <option value="easy" selected>Easy</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+        </div>
+        
+        <button id="startBtn" class="btn-primary">Start Game</button>
+      </div>
+      <!-- Dynamic circles and effects will be injected here -->
+    </main>
+
+    <div id="resultsOverlay" class="overlay hidden">
+      <div class="results-card">
+        <h2 class="results-title">Results</h2>
+        <div class="results-grid">
+          <div class="metric"><span class="metric-label">Final Score</span><span id="finalScore" class="metric-value">0</span></div>
+          <div class="metric"><span class="metric-label">Clicks</span><span id="clicksCount" class="metric-value">0</span></div>
+          <div class="metric"><span class="metric-label">Misses</span><span id="missesCount" class="metric-value">0</span></div>
+          <div class="metric"><span class="metric-label">Avg Reaction</span><span id="avgReaction" class="metric-value">0 ms</span></div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="reactionChart" height="160"></canvas>
+        </div>
+        <blockquote id="quote" class="quote">Fetching a motivational boost…</blockquote>
+        <div class="actions">
+          <button id="restartBtn" class="btn-secondary">Restart</button>
+          <button id="backToMenuBtn" class="btn-secondary">Back to Menu</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-txgYlW3Tq4mT9pT4QfXq8sdxwzVbq3pvl8AqCw9bJf6lE1qB0pG3Gxk7J/3d7G3u" crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+</body>
+</html>
