@@ -1,8 +1,8 @@
-# VibeCoding
+# Bubble Popper
 
 ## Overview
 
-VibeCoding is a simple web-based bubble popper game designed to improve cursor accuracy. This project was developed as part of the Vibe Coding Hackathon, which originally planned for three difficulty modules: easy, medium, and hard. Due to time constraints during the hackathon, only the easy module was fully implemented.
+Bubble Popper is a simple web-based bubble popper game designed to improve cursor accuracy. This project was developed as part of the Vibe Coding Hackathon, which originally planned for three difficulty modules: easy, medium, and hard. Due to time constraints during the hackathon, only the easy module was fully implemented.
 
 The game challenges players to pop bubbles by clicking on them, helping gamers enhance their mouse precision and reaction time, which can be beneficial for shooting accuracy in games.
 
